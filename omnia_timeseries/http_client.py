@@ -1,5 +1,6 @@
 from typing import Literal, Optional, TypedDict, Union, Dict, Any
-from azure.identity._internal.msal_credentials import MsalCredential
+
+from azure.core.credentials import TokenCredential
 import requests
 import logging
 
@@ -41,7 +42,7 @@ def _request(
 
 
 class HttpClient:
-    def __init__(self, azure_credential: MsalCredential, resource_id: str):
+    def __init__(self, azure_credential: TokenCredential, resource_id: str):
         self._azure_credential = azure_credential
         self._resource_id = resource_id
 

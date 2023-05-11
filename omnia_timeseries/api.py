@@ -1,6 +1,7 @@
 from typing import List, Literal, Optional
-from azure.identity._internal.msal_credentials import MsalCredential
-from omnia_timeseries.http_client import HttpClient, ContentType, RequestType
+
+from azure.core.credentials import TokenCredential
+from omnia_timeseries.http_client import HttpClient, ContentType
 from omnia_timeseries.models import (
     DatapointModel,
     DatapointsItemsModel, DatapointsPostRequestModel,
@@ -52,13 +53,13 @@ class TimeseriesAPI:
     For more information, see https://github.com/equinor/OmniaPlant/wiki or consult with the Omnia IIoT team.
     Args:
         :param azure_credential: Azure credential instance used for authenticating
-        :type azure_credential: MsalCredential
+        :type azure_credential: TokenCredential
 
         :param environment: API deployment environment
         :type environment: TimeseriesEnvironment
     """
 
-    def __init__(self, azure_credential: MsalCredential, environment: TimeseriesEnvironment):
+    def __init__(self, azure_credential: TokenCredential, environment: TimeseriesEnvironment):
         self._http_client = HttpClient(
             azure_credential=azure_credential, resource_id=environment.resource_id)
         self._base_url = environment.base_url.rstrip('/')
